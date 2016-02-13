@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "0700"
+   version = "1.3">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FF1F71011BE8F14500DFD34D"
+               BuildableName = "Assignment: &#x7f16;&#x7a0b;&#x5e73;&#x53f0;&#x6d4b;&#x8bd5;&#xff08;&#x4e0d;&#x8ba1;&#x5206;&#xff09;"
+               BlueprintName = "Assignment: &#x7f16;&#x7a0b;&#x5e73;&#x53f0;&#x6d4b;&#x8bd5;&#xff08;&#x4e0d;&#x8ba1;&#x5206;&#xff09;"
+               ReferencedContainer = "container:Assignment: &#x7f16;&#x7a0b;&#x5e73;&#x53f0;&#x6d4b;&#x8bd5;&#xff08;&#x4e0d;&#x8ba1;&#x5206;&#xff09;.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      buildConfiguration = "Debug">
+      <Testables>
+      </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "FF1F71011BE8F14500DFD34D"
+            BuildableName = "Assignment: &#x7f16;&#x7a0b;&#x5e73;&#x53f0;&#x6d4b;&#x8bd5;&#xff08;&#x4e0d;&#x8ba1;&#x5206;&#xff09;"
+            BlueprintName = "Assignment: &#x7f16;&#x7a0b;&#x5e73;&#x53f0;&#x6d4b;&#x8bd5;&#xff08;&#x4e0d;&#x8ba1;&#x5206;&#xff09;"
+            ReferencedContainer = "container:Assignment: &#x7f16;&#x7a0b;&#x5e73;&#x53f0;&#x6d4b;&#x8bd5;&#xff08;&#x4e0d;&#x8ba1;&#x5206;&#xff09;.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </TestAction>
+   <LaunchAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "FF1F71011BE8F14500DFD34D"
+            BuildableName = "Assignment: &#x7f16;&#x7a0b;&#x5e73;&#x53f0;&#x6d4b;&#x8bd5;&#xff08;&#x4e0d;&#x8ba1;&#x5206;&#xff09;"
+            BlueprintName = "Assignment: &#x7f16;&#x7a0b;&#x5e73;&#x53f0;&#x6d4b;&#x8bd5;&#xff08;&#x4e0d;&#x8ba1;&#x5206;&#xff09;"
+            ReferencedContainer = "container:Assignment: &#x7f16;&#x7a0b;&#x5e73;&#x53f0;&#x6d4b;&#x8bd5;&#xff08;&#x4e0d;&#x8ba1;&#x5206;&#xff09;.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </LaunchAction>
+   <ProfileAction
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Release"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "FF1F71011BE8F14500DFD34D"
+            BuildableName = "Assignment: &#x7f16;&#x7a0b;&#x5e73;&#x53f0;&#x6d4b;&#x8bd5;&#xff08;&#x4e0d;&#x8ba1;&#x5206;&#xff09;"
+            BlueprintName = "Assignment: &#x7f16;&#x7a0b;&#x5e73;&#x53f0;&#x6d4b;&#x8bd5;&#xff08;&#x4e0d;&#x8ba1;&#x5206;&#xff09;"
+            ReferencedContainer = "container:Assignment: &#x7f16;&#x7a0b;&#x5e73;&#x53f0;&#x6d4b;&#x8bd5;&#xff08;&#x4e0d;&#x8ba1;&#x5206;&#xff09;.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>
