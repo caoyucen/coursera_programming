@@ -1,167 +1,233 @@
 //
 //  main.cpp
-//  编程题＃4：大整数的加减乘除
+//  1
 //
-//  Created by CYC on 1/27/16.
+//  Created by CYC on 2/13/16.
 //  Copyright © 2016 CYC. All rights reserved.
 //
 
+#include <iostream>
 #include <iostream>
 #include <cstring>
 #include <string.h>
 #include <stdio.h>
 #include <memory.h>
 #include <sstream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-string s1;
-string s2;
-char r;
-int a1[102];
-int a2[102];
-int b[10010];
-string s;
-int n1;
-int n2;
+class bigint {
+    vector<int> v;
+    int pon; //positive or negative
+public:
+    bigint(string);
+    void addZero(int);
+    void print();
+    friend int bigger(bigint& B1, bigint& B2);
+    friend bigint operator+ (bigint & B1, bigint & B2 );
+    friend bigint operator- (bigint & B1, bigint & B2 );
+    friend bigint mul(bigint& B, int);
+    friend bigint operator* (bigint & B1, bigint & B2 );
+    friend bigint operator/ (bigint & B1, bigint & B2 );
+};
 
+bigint:: bigint(string s){
+    if(s != ""){
+        for( int i = s.length() - 1; i >= 0; i--){
+            v.push_back(s[i] - '0');
+        }
+    }
+    pon = 1;
+}
 
-void initial(){
-    memset(a1,0,sizeof(a1));
-    memset(a2,0,sizeof(a2));
-    memset(b,0,sizeof(b));
-    
-    int n1 = int(s1.length());
-    int n2 = int(s2.length());
-    
-    
-    for( int i = 0; i <n1; i++){
-        a1[i] = int(s1[n1 - 1 - i] - '0');
+void bigint:: print(){
+    string s = "";
+    for (int i = v.size() - 1; i >= 0; i--) {
+        s += v[i]+'0';
     }
-    for( int j = 0; j < n2; j++){
-        a2[j] = int(s2[n2 - 1 - j] - '0');
+    if (pon == 0) {
+        cout << '-';
     }
+    cout << s << endl;
+    
+}
+
+bigint operator+ (bigint& b1, bigint& b2){
+    string sum_s;
+    for( int i = 0; i < max(b1.v.size(),b2.v.size()); i++){
+        sum_s += '0';
+    }
+    bigint sum(sum_s);
+    int tem = 0;
+    int temsum = 0;
+    for( int i = 0; i <max(b1.v.size(),b2.v.size()); i++){
+        temsum = 0;
+        if (i < b1.v.size()) {
+            temsum += b1.v[i];
+        }
+        if (i < b2.v.size()) {
+            temsum += b2.v[i];
+        }
+        temsum += tem;
+        tem = 0;
+        if(temsum >= 10){
+            tem = temsum /10;
+            temsum = temsum % 10;
+        }
+        sum.v[i] = temsum;
+    }
+    if(tem > 0 ){
+        sum.v.push_back(tem);
+    }
+    return sum;
 }
 
 
-
-void processplus( ){
-    int tem = 0;
-    for( int i = 0; i < 102; i++){
-        int n = 0;
-        n = a1[i] + a2[i];
-        if (n >= 10) {
-            n = n % 10 + tem;
-            tem = 1;
-        }
-        else{
-            n = n + tem;
-            tem = 0;
-        }
-        b[i] = n;
+int bigger(bigint& b1, bigint& b2){
+    if(b1.v.size() < b2.v.size()){
+        return 0;
     }
+    if (b1.v.size() == b2.v.size()) {
+        for(int i = b1.v.size() -1; i >= 0; i--){
+            if (b1.v[i] > b2.v[i]) {
+                return 1;
+            }
+            if (b1.v[i] < b2.v[i]) {
+                return 0;
+            }
+        }
+    }
+    
+    return 1;
+}
+
+bigint operator- (bigint& b1, bigint& b2){
+    string minus_s;
+    for( int i = 0; i < max(b1.v.size(),b2.v.size()); i++){
+        minus_s += '0';
+    }
+    bigint minus(minus_s);
+    if(bigger(b1,b2)){
+        int tem = 0;
+        int temminus = 0;
+        for( int i = 0; i < b1.v.size(); i++){
+            if(i < b2.v.size()){
+                if(b1.v[i] - tem - b2.v[i] >= 0){
+                    temminus = b1.v[i] - tem - b2.v[i];
+                    tem = 0;
+                }
+                else{
+                    temminus = 10 + b1.v[i] - tem - b2.v[i];
+                    tem = 1;
+                }
+            }
+            else{
+                if (b1.v[i] - tem >= 0) {
+                    temminus = b1.v[i] - tem;
+                    tem = 0;
+                }
+                else{
+                    temminus = 10 + b1.v[i] - tem;
+                    tem = 1;
+                }
+                
+            }
+            minus.v[i] = temminus;
+        }
+    }
+    else{
+        minus.pon = 0;
+        int tem = 0;
+        int temminus = 0;
+        for( int i = 0; i < b2.v.size(); i++){
+            if(i < b1.v.size()){
+                if(b2.v[i] - tem - b1.v[i] >= 0){
+                    temminus = b2.v[i] - tem - b1.v[i];
+                    tem = 0;
+                }
+                else{
+                    temminus = 10 + b2.v[i] - tem - b1.v[i];
+                    tem = 1;
+                }
+            }
+            else{
+                if (b2.v[i] - tem >= 0) {
+                    temminus = b2.v[i] - tem;
+                    tem = 0;
+                }
+                else{
+                    temminus = 10 + b2.v[i] - tem;
+                    tem = 1;
+                }
+                
+            }
+            minus.v[i] = temminus;
+        }
+    }
+    int i = minus.v.size()-1;
+    while (minus.v[i] == 0 && i > 0) {
+        minus.v.pop_back();
+        i--;
+    }
+    return minus;
 }
 
 
-
-
-void processminus(){
+bigint mul(bigint& b,int a){
+    bigint r(b);
     int tem = 0;
-    for( int i = 0; i < 102; i++){
-        int n = 0;
-        if (a1[i] - tem >= a2[i] ) {
-            n = a1[i]- tem - a2[i] ;
-            tem = 0;
-        }
-        else{
-            n = 10 + a1[i] - tem - a2[i];
-            tem = 1;
-        }
-        b[i] = n;
+    int temmul = 0;
+    for(int i = 0; i <b.v.size(); i++){
+        temmul = 0;
+        temmul = b.v[i] * a + tem;
+        tem = temmul /10;
+        temmul = temmul % 10;
+        r.v[i] = temmul;
+    }
+    if (tem > 0) {
+        r.v.push_back(tem);
+    }
+    return r;
+}
+
+void bigint:: addZero(int j){
+    for( int i = 0; i <j; i++){
+        v.insert(v.begin(), 0);
     }
 }
 
-
-
-void processmultiply(){
-    int tem = 0;
-    int c[n2][110];
-    memset(c, 0, sizeof(c));
-    for( int i = 0; i < n2;i++){
-        for( int j = 0; j < )
+bigint operator* (bigint& b1, bigint& b2){
+    bigint rmul("");
+    bigint temp("");
+    for( int i = 0; i < b2.v.size(); i++){
+        temp = mul(b1,b2.v[i]);
+        temp.addZero(i);
+        rmul = rmul + temp;
     }
-    
-    
-    
+    return rmul;
     
 }
 
 
 int main() {
-    
+    string s1;
+    string s2;
+    char r;
     cin >> s1 >> r >> s2;
     
+    bigint b1 (s1);
+    bigint b2 (s2);
     
-    if (r == '+') {
-        initial();
-        processplus();
-    }
     if (r == '-') {
-        if (s1 >= s2) {
-            initial();
-            processminus();
-        }
-        if (s1 < s2 ) {
-            string temstr;
-            temstr = s1;
-            s1 = s2;
-            s2 = temstr;
-            initial();
-            processminus();
-            cout << "-";
-        }
+        (b1 - b2).print();
+    }
+    if (r == '+') {
+        (b1 + b2).print();
     }
     if (r == '*') {
-        if (s1 < s2) {
-            string temstr;
-            temstr = s1;
-            s1 = s2;
-            s2 = temstr;
-        }
-        initial();
-        processminus();
+        (b1 * b2).print();
     }
-    
-    
-    
-    int pluslocaton = 0;
-    for( int j = 101; j >= 0; j--){
-        if (b[j] != 0) {
-            pluslocaton = j;
-            j = -1;
-        }
-    }
-
-    stringstream ss;
-    
-    for( int z = pluslocaton; z >= 0; z--){
-        ss << b[z];
-    }
-    ss >> s;
-    cout << s << endl;
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     return 0;
 }
