@@ -6,13 +6,12 @@
 //  Copyright © 2016 CYC. All rights reserved.
 //
 
-#include <iostream>
+
 #include <iostream>
 #include <cstring>
 #include <string.h>
 #include <stdio.h>
 #include <memory.h>
-#include <sstream>
 #include <vector>
 #include <algorithm>
 using namespace std;
@@ -22,7 +21,8 @@ class bigint {
     int pon; //positive or negative
 public:
     bigint(string);
-    void addZero(int);
+    void addZero(int a);
+    void minusZero ();
     void print();
     friend int bigger(bigint& B1, bigint& B2);
     friend bigint operator+ (bigint & B1, bigint & B2 );
@@ -102,6 +102,16 @@ int bigger(bigint& b1, bigint& b2){
     return 1;
 }
 
+
+void bigint::  minusZero (){    //去前面的0
+    int i = v.size()-1;
+    while (v[i] == 0 && i > 0) {
+        v.pop_back();
+        i--;
+    }
+}
+
+
 bigint operator- (bigint& b1, bigint& b2){
     string minus_s;
     for( int i = 0; i < max(b1.v.size(),b2.v.size()); i++){
@@ -165,11 +175,7 @@ bigint operator- (bigint& b1, bigint& b2){
             minus.v[i] = temminus;
         }
     }
-    int i = minus.v.size()-1;
-    while (minus.v[i] == 0 && i > 0) {
-        minus.v.pop_back();
-        i--;
-    }
+    minus.minusZero();
     return minus;
 }
 
@@ -192,41 +198,102 @@ bigint mul(bigint& b,int a){
 }
 
 void bigint:: addZero(int j){
-    for( int i = 0; i <j; i++){
-        v.insert(v.begin(), 0);
+    if (j >= 0){
+        for( int i = 0; i <j; i++){
+            v.insert(v.begin(), 0);
+        }
+    }
+    else{
+        for (int i = 0; i < -j; i++){
+            v = vector<int>(v.begin()+1,v.end());
+        }
     }
 }
 
 bigint operator* (bigint& b1, bigint& b2){
-    bigint rmul("");
+    bigint rd("");
     bigint temp("");
     for( int i = 0; i < b2.v.size(); i++){
         temp = mul(b1,b2.v[i]);
         temp.addZero(i);
-        rmul = rmul + temp;
+        rd = rd + temp;
     }
-    return rmul;
+    return rd;
     
 }
+
+//bigint operator/ (bigint& b1, bigint& b2){
+//    bigint rd("");
+//    bigint temp("");
+//    int gap = b1.v.size() - b2.v.size();
+//    b2.addZero(gap); //append 0 to factor
+//    
+//    for( int i = gap; i >= 0; i--){
+//        int digit = 0;
+//        while (bigger(b1,b2)){
+//            b1 = b1-b2;
+//            digit++;
+//        }
+//        rd.v.insert(rd.v.begin(),digit);
+//        b2.addZero(-1);
+//    }
+//    //remove header 0
+//    rd.minusZero();
+//    return rd;
+//    
+//}
+
+bigint operator/ (bigint& b1, bigint& b2){
+    string div_s;
+    for( int i = 0; i < max(b1.v.size(),b2.v.size()); i++){
+        div_s += '0';
+    }
+    bigint div(div_s);
+    if (bigger(b1, b2) ) {
+        bigint tem("");
+        for(int j = b1.v.size() - 1; j >= 0; j--){
+            tem.v.insert(tem.v.begin(), b1.v[j]);
+            if(bigger(tem, b2)){
+                for (int z = 1; z < 10; z++) {
+                    tem = tem - b2; 
+                    if (bigger(tem, b2) == 0) {
+                        div.v[j] = z ;
+                        break;
+                    }
+                }
+            }
+            else{
+                div.v[j] = 0;
+            }
+        }
+    }
+    div.minusZero();
+    
+    return div;
+}
+
 
 
 int main() {
     string s1;
     string s2;
-    char r;
-    cin >> s1 >> r >> s2;
+    char o;
+    cin >> s1 >> o >> s2;
     
     bigint b1 (s1);
     bigint b2 (s2);
     
-    if (r == '-') {
+    if (o == '-') {
         (b1 - b2).print();
     }
-    if (r == '+') {
+    if (o == '+') {
         (b1 + b2).print();
     }
-    if (r == '*') {
+    if (o == '*') {
         (b1 * b2).print();
+    }
+    if (o == '/') {
+        (b1 / b2).print();
     }
     
     return 0;
