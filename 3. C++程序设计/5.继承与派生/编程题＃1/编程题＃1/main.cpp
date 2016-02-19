@@ -1,33 +1,31 @@
-//
-//  main.cpp
-//  编程题＃1
-//
-//  Created by CYC on 2/18/16.
-//  Copyright © 2016 CYC. All rights reserved.
-//
-
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
 using namespace std;
-// 在此处补充你的代码
-
-class MyString : string{
+class MyString : public string{
 public:
+    MyString(const string& s): string(s){}
     MyString(const char* s): string(s){}
     MyString():string(){}
-
+    MyString operator() (int i, int j){
+        
+        return this->substr(i,j);
+    }
 };
-
-
-
 
 int CompareString( const void * e1, const void * e2) {
     MyString * s1 = (MyString * ) e1;
     MyString * s2 = (MyString * ) e2;
-    if( *s1 < *s2 )     return -1;
-    else if( *s1 == *s2 ) return 0;
-    else if( *s1 > *s2 ) return 1;
+    if( *s1 < *s2 ){
+        return -1;
+    }
+    else if( *s1 == *s2 ){
+        return 0;
+    }
+    else if( *s1 > *s2 ){
+        return 1;
+    }
+    return 0;
 }
 int main() {
     MyString s1("abcd-"),s2,s3("efgh-"),s4(s1);
